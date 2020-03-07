@@ -1,7 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("Hello");
     preventNegativeNumbers();
     loadData();
     addEventListeners();
+    disableEnableInput();
 });
 
 const loadData = () => {
@@ -22,16 +24,32 @@ const addEventListeners = () => {
     });
     $('#notifySound').on('click', (event) => {
         chrome.storage.sync.set({ notifySound: event.target.checked });
+        disableEnableInput();
     });
     $('#notifyMessage').on('click', (event) => {
         chrome.storage.sync.set({ notifyMessage: event.target.checked });
+        disableEnableInput();
     });
     $("#showMessage").on('click', (event) => {
         chrome.extension.getBackgroundPage().showFinishedCellNotification();
     });
-
-
+    $("#playSound").on('click', (event) => {
+        chrome.extension.getBackgroundPage().playFinishedCellAudio();
+    });
 }
+
+
+async function disableEnableInput() {
+    const notifySound = (await chrome.extension.getBackgroundPage().getValueFromStorage('notifySound')).notifySound;
+    const notifyMessage = (await chrome.extension.getBackgroundPage().getValueFromStorage('notifyMessage')).notifyMessage;
+
+    if(!notifySound && !notifyMessage) {
+        $('#thresholdMinutes').prop("disabled", true);
+    } else {
+        $('#thresholdMinutes').prop("disabled", false);
+    }
+}
+
 
 const preventNegativeNumbers = () => {
     $('#thresholdMinutes').on('keydown', (e) => {

@@ -10,6 +10,7 @@
                 "https://colab.research.google.com/*"
             ],
             "js": [
+                "./node_modules/webextension-polyfill/dist/browser-polyfill.min.js",
                 "content.js"
             ]
         }
@@ -19,11 +20,14 @@
         "default_title": "hello"
     },
     "background": {
-        "scripts": ["background.js"],
+        "scripts": [
+            "./node_modules/webextension-polyfill/dist/browser-polyfill.min.js",
+            "background.js"
+        ],
         "persistent": false
     },
     "icons": {
         "48": "./assets/icons/round-done-48.svg",
-        "128": "./assets/icons/round-done-128.svg"
+        "128": "./assets/icons/round-check-circle-outline.svg"
     }
 }
