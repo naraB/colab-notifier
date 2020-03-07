@@ -5,12 +5,12 @@ chrome.runtime.onInstalled.addListener(() => {
 let audio = new Audio('./assets/sounds/zapsplat.mp3');
 
 
-function showFinishedCellNotification() {
+function showFinishedCellNotification(runtime) {
     let timestamp = new Date().getTime();
     let notificationOptions = {
         type: 'basic',
         title: 'Your Colab cell finished running!',
-        message: 'Check it out',
+        message: 'Runtime: ' + msToTime(runtime),
         iconUrl: './assets/icons/icon-128px.png'
     }
     chrome.notifications.create('id ' + timestamp, notificationOptions);
@@ -47,9 +47,25 @@ async function finishedRunning(message) {
             playFinishedCellAudio();
         }
         if (notifyMessage) {
-            showFinishedCellNotification();
+            showFinishedCellNotification(message.runtimeMs);
         }
         return (true);
     }
     return (false);
+}
+
+function msToTime(duration) {
+    if (!duration) {
+        return '42';
+    }
+    let milliseconds = parseInt((duration % 1000) / 100),
+        seconds = Math.floor((duration / 1000) % 60),
+        minutes = Math.floor((duration / (1000 * 60)) % 60),
+        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    hours = (hours < 10) ? '0' + hours : hours;
+    minutes = (minutes < 10) ? '0' + minutes : minutes;
+    seconds = (seconds < 10) ? '0' + seconds : Math.floor(seconds);
+
+    return hours + ':' + minutes + ':' + seconds + '.' + milliseconds;
 }
