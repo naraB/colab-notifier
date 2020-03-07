@@ -5,6 +5,11 @@
   font-family: "Lato", sans-serif;
 }
 
+:root {
+  --main-color: #1E88E5;
+  --border-color: #e8e8e8;
+}
+
 @font-face {
   font-family: "Lato";
   src: url("../assets/fonts/Lato-Regular.ttf");
@@ -64,7 +69,7 @@ p {
 }
 
 .border-bottom {
-  border-bottom: 1px solid lightgrey;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .main-width {
@@ -76,7 +81,7 @@ p {
 }
 
 .secondary-padding {
-  padding: 0  30px;
+  padding: 0 30px;
 }
 
 .input-label {
@@ -84,10 +89,10 @@ p {
   font-size: 14px;
 }
 
-input[type=number] { 
+input[type="number"] {
   width: 60px;
-  text-align:right; 
-  padding: 3px 5px;
+  text-align: right;
+  padding: 3px 10px;
 }
 
 .switch {
@@ -130,7 +135,7 @@ input[type=number] {
 }
 
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: var(--main-color);
 }
 
 input:checked + .slider:before {
@@ -139,10 +144,12 @@ input:checked + .slider:before {
   transform: translateX(26px);
 }
 
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    display: none;
+  display: none;
 }
+
 
 .bold {
   font-weight: bold;
@@ -158,4 +165,11 @@ input::-webkit-inner-spin-button {
 
 .padding-top-bottom {
   padding: 30px 0px;
+}
+
+.timer-icon {
+  background-color: var(--main-color);
+  border-radius: 50%;
+  padding: 3px;
+  margin-right: 6px;
 }

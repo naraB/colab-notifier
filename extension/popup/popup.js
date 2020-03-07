@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Hello');
-    preventNegativeNumbers();
+    inputFormatting();
     loadData();
     addEventListeners();
     disableEnableInput();
@@ -51,12 +51,21 @@ async function disableEnableInput() {
 }
 
 
-const preventNegativeNumbers = () => {
+const inputFormatting = () => {
+    let valueBefore;
+    $('#thresholdMinutes').on('input', (e) => {
+        if(e.target.valueAsNumber > 1000) {
+            $('#thresholdMinutes').val(valueBefore);
+        } else {
+            valueBefore = e.target.valueAsNumber;
+        }
+    });
     $('#thresholdMinutes').on('keydown', (e) => {
-        if (!((e.keyCode > 95 && e.keyCode < 106)
-            || (e.keyCode > 47 && e.keyCode < 58)
-            || e.keyCode == 8)) {
+        if (!((e.keyCode > 95 && e.keyCode < 106) || (e.keyCode > 47 && e.keyCode < 58) 
+        || e.keyCode === 8 || e.keyCode === 39 || e.keyCode === 37)) {
             return false;
         }
-    })
+        valueBefore = e.target.valueAsNumber;
+        
+    });
 }

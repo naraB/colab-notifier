@@ -1,9 +1,12 @@
 {
     "manifest_version": 2,
     "name": "Colab Notifier",
-    "description": "Notifies you when longer running code cells are finished!",
+    "description": "Notifies you when longer running code cells are finished",
     "version": "1.0",
-    "permissions": ["storage", "notifications"],
+    "permissions": [
+        "storage",
+        "notifications"
+    ],
     "content_scripts": [
         {
             "matches": [
@@ -17,7 +20,7 @@
     ],
     "browser_action": {
         "default_popup": "./popup/popup.html",
-        "default_title": "hello"
+        "default_title": "colab notifier"
     },
     "background": {
         "scripts": [
@@ -27,7 +30,10 @@
         "persistent": false
     },
     "icons": {
-        "48": "./assets/icons/round-done-48.svg",
-        "128": "./assets/icons/round-check-circle-outline.svg"
-    }
+        "16": "./assets/icons/icon-16px.png",
+        "48": "./assets/icons/icon-48px.png",
+        "128": "./assets/icons/icon-128px.png"
+    },
+    "web_accessible_resources": ["./assets/icons/timer-24px.svg"]
+
 }
