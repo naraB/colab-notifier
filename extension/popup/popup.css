@@ -92,7 +92,7 @@ p {
 input[type="number"] {
   width: 60px;
   text-align: right;
-  padding: 3px 10px;
+  padding: 3px 15px;
 }
 
 .switch {

@@ -2,12 +2,19 @@ chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({ thresholdMinutes: 15, notifySound: true, notifyMessage: true });
 });
 
-let audio = new Audio('./assets/sounds/zapsplat.mp3');
+chrome.runtime.onConnect.addListener(port => {
+    console.log('connected', port);
+    port.onMessage.addListener(message => {
+        finishedRunning(message).then(result => port.postMessage(result));
+    });
+});
+
+const audio = new Audio('./assets/sounds/zapsplat.mp3');
 
 
 function showFinishedCellNotification(runtime) {
-    let timestamp = new Date().getTime();
-    let notificationOptions = {
+    const timestamp = new Date().getTime();
+    const notificationOptions = {
         type: 'basic',
         title: 'Your Colab cell finished running!',
         message: 'Runtime: ' + msToTime(runtime),
@@ -27,18 +34,13 @@ async function getValueFromStorage(key) {
     return await value;
 }
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    finishedRunning(message).then(sendResponse);
-    return true;
-});
-
 async function finishedRunning(message) {
 
     const thresholdMs = parseInt((await getValueFromStorage('thresholdMinutes')).thresholdMinutes) * 60000;
     const notifySound = (await getValueFromStorage('notifySound')).notifySound;
     const notifyMessage = (await getValueFromStorage('notifyMessage')).notifyMessage;
 
-    if(isNaN(thresholdMs)) {
+    if (isNaN(thresholdMs)) {
         thresholdMs = 15 * 60000;
     }
 
@@ -49,23 +51,22 @@ async function finishedRunning(message) {
         if (notifyMessage) {
             showFinishedCellNotification(message.runtimeMs);
         }
-        return (true);
+        return true;
     }
-    return (false);
+    return false;
 }
 
 function msToTime(duration) {
     if (!duration) {
-        return '42';
+        return '42h';
     }
-    let milliseconds = parseInt((duration % 1000) / 100),
-        seconds = Math.floor((duration / 1000) % 60),
-        minutes = Math.floor((duration / (1000 * 60)) % 60),
-        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+    let seconds = Math.floor((duration / 1000) % 60);
+    let minutes = Math.floor((duration / (1000 * 60)) % 60);
+    let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
 
     hours = (hours < 10) ? '0' + hours : hours;
     minutes = (minutes < 10) ? '0' + minutes : minutes;
-    seconds = (seconds < 10) ? '0' + seconds : Math.floor(seconds);
+    seconds = (seconds < 10) ? '0' + seconds : seconds;
 
-    return hours + ':' + minutes + ':' + seconds + '.' + milliseconds;
+    return hours + ':' + minutes + ':' + seconds;
 }

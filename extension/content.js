@@ -29,9 +29,12 @@ const cellFinishedRunning = () => {
     const runtimeMs = endTime - startTime;
     startTime = null;
 
-    chrome.runtime.sendMessage({ runtimeMs }, (response) => {
+    const port = chrome.runtime.connect({ name: "cell-finished" });
+    port.postMessage({ runtimeMs });
+    port.onMessage.addListener(response => {
         if (response) {
             finishedCellObserver.disconnect();
+            port.disconnect();
         }
     });
 };

@@ -2,7 +2,7 @@
     "manifest_version": 2,
     "name": "Colab Notifier",
     "description": "Notifies you when longer running code cells are finished",
-    "version": "1.0",
+    "version": "1.1",
     "permissions": [
         "storage",
         "notifications"
@@ -13,7 +13,6 @@
                 "https://colab.research.google.com/*"
             ],
             "js": [
-                "./node_modules/webextension-polyfill/dist/browser-polyfill.min.js",
                 "content.js"
             ]
         }
@@ -24,7 +23,6 @@
     },
     "background": {
         "scripts": [
-            "./node_modules/webextension-polyfill/dist/browser-polyfill.min.js",
             "background.js"
         ],
         "persistent": false
