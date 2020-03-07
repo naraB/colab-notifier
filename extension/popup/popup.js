@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("Hello");
+    console.log('Hello');
     preventNegativeNumbers();
     loadData();
     addEventListeners();
@@ -11,10 +11,10 @@ const loadData = () => {
         $('#thresholdMinutes').val(value.thresholdMinutes);
     });
     chrome.storage.sync.get(['notifySound'], (value) => {
-        $('#notifySound').prop("checked", value.notifySound);
+        $('#notifySound').prop('checked', value.notifySound);
     });
     chrome.storage.sync.get(['notifyMessage'], (value) => {
-        $('#notifyMessage').prop("checked", value.notifyMessage);
+        $('#notifyMessage').prop('checked', value.notifyMessage);
     });
 }
 
@@ -30,10 +30,10 @@ const addEventListeners = () => {
         chrome.storage.sync.set({ notifyMessage: event.target.checked });
         disableEnableInput();
     });
-    $("#showMessage").on('click', (event) => {
+    $('#showMessage').on('click', (event) => {
         chrome.extension.getBackgroundPage().showFinishedCellNotification();
     });
-    $("#playSound").on('click', (event) => {
+    $('#playSound').on('click', (event) => {
         chrome.extension.getBackgroundPage().playFinishedCellAudio();
     });
 }
@@ -44,9 +44,9 @@ async function disableEnableInput() {
     const notifyMessage = (await chrome.extension.getBackgroundPage().getValueFromStorage('notifyMessage')).notifyMessage;
 
     if(!notifySound && !notifyMessage) {
-        $('#thresholdMinutes').prop("disabled", true);
+        $('#thresholdMinutes').prop('disabled', true);
     } else {
-        $('#thresholdMinutes').prop("disabled", false);
+        $('#thresholdMinutes').prop('disabled', false);
     }
 }
 

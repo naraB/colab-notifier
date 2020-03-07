@@ -2,23 +2,23 @@
   margin: 0px;
   padding: 0px;
   box-sizing: border-box;
-  font-family: "Lato";
+  font-family: "Lato", sans-serif;
 }
 
 @font-face {
   font-family: "Lato";
-  src: url("./assets/fonts/Lato-Regular.ttf");
+  src: url("../assets/fonts/Lato-Regular.ttf");
 }
 
 @font-face {
   font-family: "Lato";
-  src: url("./assets/fonts/Lato-Bold.ttf");
+  src: url("../assets/fonts/Lato-Bold.ttf");
   font-weight: bold;
 }
 
 @font-face {
   font-family: "LatoThin";
-  src: url("./assets/fonts/Lato-Thin.ttf");
+  src: url("../assets/fonts/Lato-Thin.ttf");
   font-weight: lighter;
 }
 

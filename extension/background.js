@@ -11,7 +11,7 @@ function showFinishedCellNotification() {
         type: 'basic',
         title: 'Your Colab cell finished running!',
         message: 'Check it out',
-        iconUrl: "./assets/icons/round-check-circle-outline.svg"
+        iconUrl: './assets/icons/round-check-circle-outline.svg'
     }
     chrome.notifications.create('id ' + timestamp, notificationOptions);
 }
