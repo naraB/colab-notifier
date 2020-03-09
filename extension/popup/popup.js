@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Hello');
     inputFormatting();
     loadData();
     addEventListeners();
@@ -31,17 +30,21 @@ const addEventListeners = () => {
         disableEnableInput();
     });
     $('#showMessage').on('click', (event) => {
-        chrome.extension.getBackgroundPage().showFinishedCellNotification();
+        const connection = chrome.runtime.connect({ name: "show-message" });
+        connection.disconnect();
+        //chrome.extension.getBackgroundPage().showFinishedCellNotification();
     });
     $('#playSound').on('click', (event) => {
-        chrome.extension.getBackgroundPage().playFinishedCellAudio();
+        const connection = chrome.runtime.connect({ name: "play-audio" });
+        connection.disconnect();
+        //chrome.extension.getBackgroundPage().playFinishedCellAudio();
     });
 }
 
 
 async function disableEnableInput() {
-    const notifySound = (await chrome.extension.getBackgroundPage().getValueFromStorage('notifySound')).notifySound;
-    const notifyMessage = (await chrome.extension.getBackgroundPage().getValueFromStorage('notifyMessage')).notifyMessage;
+    const notifySound = (await getValueFromStorage('notifySound')).notifySound;
+    const notifyMessage = (await getValueFromStorage('notifyMessage')).notifyMessage;
 
     if(!notifySound && !notifyMessage) {
         $('#thresholdMinutes').prop('disabled', true);
@@ -68,4 +71,11 @@ const inputFormatting = () => {
         valueBefore = e.target.valueAsNumber;
         
     });
+}
+
+async function getValueFromStorage(key) {
+    const value = new Promise((resolve, reject) => {
+        chrome.storage.sync.get([key], (value) => resolve(value));
+    });
+    return await value;
 }

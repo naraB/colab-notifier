@@ -3,10 +3,23 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.runtime.onConnect.addListener(port => {
-    console.log('connected', port);
-    port.onMessage.addListener(message => {
-        finishedRunning(message).then(result => port.postMessage(result));
-    });
+    console.log('connected', port.name);
+
+    if(port.name === 'play-audio') {
+        playFinishedCellAudio();
+    }
+
+    if(port.name === 'show-message') {
+        showFinishedCellNotification();
+    }
+
+
+    if (port.name === 'cell-finished') {
+        port.onMessage.addListener(message => {
+            finishedRunning(message).then(result => port.postMessage(result));
+        });
+    }
+
 });
 
 const audio = new Audio('./assets/sounds/zapsplat.mp3');
