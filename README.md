@@ -21,3 +21,4 @@ Using **colab notifier** you will get notified when your cells are finished afte
 
 
 ## License
+MIT © Baran Yildirim:
