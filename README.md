@@ -18,7 +18,7 @@ Using **colab notifier** you will get notified when your cells are finished afte
 **colab notifier** is published on the Chrome Web Store: https://chrome.google.com/webstore/detail/colab-notifier/njppjhbkfdkokacgoifjbbkijgfpkjec
 
 ## Contribute
-
+TBD
 
 ## License
-MIT © Baran Yildirim:
+MIT © Baran Yildirim
