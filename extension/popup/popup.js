@@ -32,12 +32,10 @@ const addEventListeners = () => {
     $('#showMessage').on('click', (event) => {
         const connection = chrome.runtime.connect({ name: "show-message" });
         connection.disconnect();
-        //chrome.extension.getBackgroundPage().showFinishedCellNotification();
     });
     $('#playSound').on('click', (event) => {
         const connection = chrome.runtime.connect({ name: "play-audio" });
         connection.disconnect();
-        //chrome.extension.getBackgroundPage().playFinishedCellAudio();
     });
 }
 
