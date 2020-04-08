@@ -1,4 +1,4 @@
-## colab notifier
+![logo](./images/logo.png)
 **colab notifier** is a Google Chrome extension that notifies you when cells are finished running.
 
 ## Description
@@ -11,7 +11,7 @@ Using **colab notifier** you will get notified when your cells are finished afte
 
 ---
 
-![colab notifier in action](./images/screenshot-ui.png)
+![colab notifier in action](./images/screenshot-notification.png)
 
 ## Installation
 **colab notifier** is published on the Chrome Web Store: https://chrome.google.com/webstore/detail/colab-notifier/njppjhbkfdkokacgoifjbbkijgfpkjec
